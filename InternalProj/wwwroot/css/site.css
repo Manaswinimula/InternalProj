@@ -1,0 +1,101 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.custom-form {
+    max-width: 100%; 
+    width: 100%; 
+    margin: 0 auto; 
+}
+
+.custom-form-wrapper {
+    background-color: #f8f9fa; 
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%; 
+    max-width: 1000px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    margin:auto;
+    margin-top: 20px;
+}
+
+
+.d-grid{
+    text-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.btn-primary {
+    background-color: #28a745 !important; 
+    border-color: #28a745 !important;
+    color: white;
+    width: 150px;
+    margin-bottom: 20px;
+    margin-top:10px;
+}
+
+    .btn-primary:hover {
+        background-color: #218838 !important;
+        border-color: #1e7e34 !important;
+    }
+
+
+input:hover {
+    background-color: #f0f8ff;
+    border: 1px solid #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+
+.form-label{
+    font-weight:bold;
+    font-size: 14px;
+}
+
+.form-select {
+    font-size:14px !important;
+}
+
+input {
+    font-size: 14px !important;
+}
+.required-label::after {
+    content: " *";
+    color: red;
+}
+
+/* Universal font styling for selects, table headers, and table data cells */
+.form-select,
+.table th,
+.table td,
+.qty-input,
+.rate-input,
+.gtotal-input {
+    font-size: 14px !important;
+}
+
+.select2{
+    font-size: 14px !important; /* Adjust to your preferred size */
+}
