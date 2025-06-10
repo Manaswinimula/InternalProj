@@ -103,7 +103,7 @@ namespace InternalProj.Controllers
 
                 // Save WorkOrder
                 _context.WorkOrders.Add(model.WorkOrder);
-                await _context.SaveChangesAsync(); // Required to get WorkOrderId
+                await _context.SaveChangesAsync(); 
 
                 if (model.WorkDetailsList == null || !model.WorkDetailsList.Any())
                 {
@@ -151,7 +151,6 @@ namespace InternalProj.Controllers
 
                         if (!childExists)
                         {
-                            // ChildSubheadId invalid - ignore and set null
                             Console.WriteLine($"Warning: Invalid ChildSubheadId {detail.ChildSubheadId}, setting to null.");
                             detail.ChildSubheadId = null;
                         }
@@ -236,156 +235,6 @@ namespace InternalProj.Controllers
         }
 
 
-
-
-        //public async Task<IActionResult> Create(WorkOrderViewModel model)
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            foreach (var modelError in ModelState)
-        //            {
-        //                foreach (var error in modelError.Value.Errors)
-        //                {
-        //                    Console.WriteLine($"Key: {modelError.Key}, Error: {error.ErrorMessage}");
-        //                }
-        //            }
-
-        //            PopulateDropdowns(model);
-        //            return View(model);
-        //        }
-
-        //        Console.WriteLine($"WorkDetailsList count: {model.WorkDetailsList?.Count ?? 0}");
-
-        //    try
-        //    {
-        //            model.WorkOrder.Active = "Y";
-        //            model.WorkOrder.Wdate = DateTime.UtcNow;
-
-        //            // Validate delivery date
-        //            if (model.WorkOrder.Ddate.HasValue)
-        //            {
-        //                if (model.WorkOrder.Ddate.Value < DateTime.UtcNow)
-        //                {
-        //                    ModelState.AddModelError("WorkOrder.Ddate", "Delivery date cannot be in the past.");
-        //                    PopulateDropdowns(model);
-        //                    return View(model);
-        //                }
-
-        //                model.WorkOrder.Ddate = model.WorkOrder.Ddate.Value.ToUniversalTime();
-        //            }
-
-        //            // Save WorkOrderMaster
-        //            _context.WorkOrders.Add(model.WorkOrder);
-        //            await _context.SaveChangesAsync(); // Ensure WorkOrderId is generated
-
-        //            // Validate WorkDetails
-        //            if (model.WorkDetailsList == null || !model.WorkDetailsList.Any())
-        //            {
-        //                ModelState.AddModelError("", "Please add at least one work detail entry.");
-        //                PopulateDropdowns(model);
-        //                return View(model);
-        //            }
-
-        //            double subTotal = 0;
-
-        //        foreach (var detail in model.WorkDetailsList)
-        //        {
-        //            Console.WriteLine($"Detail: MainHeadId={detail.MainHeadId}, SubheadId={detail.SubheadId}, SizeId={detail.SizeId}, Qty={detail.Qty}, Rate={detail.Rate}");
-
-        //            if (detail.Qty <= 0)
-        //            {
-        //                ModelState.AddModelError("", "Quantity must be greater than 0.");
-        //                PopulateDropdowns(model);
-        //                return View(model);
-        //            }
-
-        //            // Validate if the SubHeadId and SizeId exists in the respective tables
-        //            var subHeadName = await _context.SubHeads
-        //                .Where(s => s.SubHeadId == detail.SubheadId)
-        //                .Select(s => s.SubHeadName)
-        //                .FirstOrDefaultAsync();
-
-        //            var sizeName = await _context.Albums
-        //                .Where(s => s.SizeId == detail.SizeId)
-        //                .Select(s => s.Size)
-        //                .FirstOrDefaultAsync();
-
-        //            // Validate MainHeadId
-        //            var mainHead = await _context.MainHeads
-        //                .FirstOrDefaultAsync(m => m.MainHeadId == detail.MainHeadId);
-
-        //            if (mainHead == null)
-        //            {
-        //                ModelState.AddModelError("", $"Invalid MainHeadId: {detail.MainHeadId}. It does not exist.");
-        //                PopulateDropdowns(model);
-        //                return View(model);
-        //            }
-
-        //            if (detail.Rate > 0.00) // Only add/update RateMaster if rate > 0
-        //            {
-        //                var existingRate = await _context.RateMasters
-        //                    .FirstOrDefaultAsync(r => r.SubHeadId == detail.SubheadId && r.SizeId == detail.SizeId && r.Active == "Y");
-
-        //                if (existingRate == null)
-        //                {
-        //                    existingRate = new RateMaster
-        //                    {
-        //                        SubHeadId = detail.SubheadId,
-        //                        SizeId = detail.SizeId,
-        //                        MainHeadId = detail.MainHeadId,
-        //                        Rate = Math.Round((decimal)detail.Rate, 2),
-        //                        Active = "Y",
-        //                        Details = $"{subHeadName} - {sizeName}"
-        //                    };
-
-        //                    _context.RateMasters.Add(existingRate);
-        //                    await _context.SaveChangesAsync();
-        //                }
-        //                else if (existingRate.Rate != (decimal)detail.Rate)
-        //                {
-        //                    existingRate.Rate = Math.Round((decimal)detail.Rate, 2);
-        //                    existingRate.Details = $"{subHeadName} - {sizeName}";
-        //                    _context.RateMasters.Update(existingRate);
-        //                    await _context.SaveChangesAsync();
-        //                }
-
-        //                detail.Rate = (double)existingRate.Rate;
-        //            }
-        //            else
-        //            {
-        //                // Rate is 0 or not provided, just keep detail.Rate as is (0)
-        //            }
-
-        //            // Add WorkDetail in all cases, no matter rate is zero or not
-        //            detail.WorkOrderId = model.WorkOrder.WorkOrderId;
-        //            detail.GTotal = detail.Qty * detail.Rate;
-        //            detail.Tax ??= 0;
-        //            detail.Cess ??= 0;
-        //            detail.Active = "Y";
-
-        //            subTotal += detail.GTotal;
-
-        //            _context.WorkDetails.Add(detail);
-        //        }
-
-        //        Console.WriteLine($"WorkOrderId in model: {model.WorkOrder.WorkOrderId}");
-
-        //        model.WorkOrder.SubTotal = Math.Round(subTotal, 2);
-
-        //            await _context.SaveChangesAsync();
-
-        //            TempData["SuccessMessage"] = "Work Order created successfully.";
-        //            return RedirectToAction("Create");
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine($"Error: {ex.Message}");
-        //            ModelState.AddModelError("", "An error occurred while saving the work order.");
-        //            PopulateDropdowns(model);
-        //            return View(model);
-        //        }
-        //    }
-
         private void PopulateDropdowns(WorkOrderViewModel model)
         {
             model.Machines = _context.Machines.Where(s => s.Active == "Y").ToList();
@@ -466,15 +315,39 @@ namespace InternalProj.Controllers
                     rate = _context.RateMasters
                         .Where(r => r.SubHeadId == subHeadId && r.SizeId == sizeId && r.Active == "Y")
                         .Select(r => r.Rate)
-                        .FirstOrDefault(), // Assuming FirstOrDefault is safe for your use case
+                        .FirstOrDefault(), 
                     size = _context.Albums
                         .Where(s => s.SizeId == sizeId)
                         .Select(s => s.Size)
-                        .FirstOrDefault() // Get the size name for the given sizeId
+                        .FirstOrDefault() 
                 })
                 .ToList();
 
             return Json(childSubHeads);
         }
+
+        public IActionResult GetWorkOrderDetails(int id)
+        {
+            var workOrder = _context.WorkOrders
+                .Include(w => w.Customer)
+                .Include(w => w.WorkType)
+                .FirstOrDefault(w => w.WorkOrderId == id);
+
+            var details = _context.WorkDetails
+                .Include(d => d.SubHead)
+                .Include(d => d.Size)
+                .Include(d => d.ChildSubHead)
+                .Where(d => d.WorkOrderId == id)
+                .ToList();
+
+            var viewModel = new WorkOrderViewModel
+            {
+                WorkOrder = workOrder,
+                WorkDetailsList = details
+            };
+
+            return PartialView("_WorkOrderDetailsPartial", viewModel);
+        }
+
     }
 }

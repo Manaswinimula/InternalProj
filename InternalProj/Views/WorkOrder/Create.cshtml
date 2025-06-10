@@ -472,7 +472,6 @@
                     updateMainHeadSubtotals();
                 });
             });
-
          
             function calculateAssignedSheets() {
                 let totalAssigned = 0;
@@ -514,11 +513,6 @@
                         return;
                     }
                 
-
-                    // if (remainingSheets <= 0) {
-                    //     alert('All sheets are already assigned. You cannot add more.');
-                    //     return;
-                    // }
 
                     if (isNaN(qty) || qty < 1 || qty > remainingSheets) {
                         validationMessage.style.display = 'block';
