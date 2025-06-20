@@ -9,7 +9,6 @@ namespace InternalProj
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -18,14 +17,14 @@ namespace InternalProj
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+
             if (app.Environment.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage(); // Shows detailed errors during development
+                app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error"); // Production error handling
+                app.UseExceptionHandler("/Home/Error"); 
                 app.UseHsts();
             }
             app.UseStaticFiles();

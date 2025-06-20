@@ -48,19 +48,19 @@ namespace InternalProj.Controllers
                     w.Customer != null &&
                     w.Customer.StudioName.Trim().ToLower() == studio.Trim().ToLower());
             }
-
+                       
             if (fromDate.HasValue)
             {
-                query = query.Where(w =>
-                    w.Wdate >= fromDate.Value.Date.ToUniversalTime());
+                var fromUtc = DateTime.SpecifyKind(fromDate.Value.Date, DateTimeKind.Utc);
+                query = query.Where(w => w.Wdate >= fromUtc);
             }
 
             if (toDate.HasValue)
             {
-                query = query.Where(w =>
-                    w.Wdate <= toDate.Value.Date.ToUniversalTime());
+                var toUtc = DateTime.SpecifyKind(toDate.Value.Date.AddDays(1).AddTicks(-1), DateTimeKind.Utc);
+                query = query.Where(w => w.Wdate <= toUtc);
             }
-                        
+
             if (workTypeId.HasValue && workTypeId.Value > 0)
             {
                 query = query.Where(w => w.WorkTypeId == workTypeId);

@@ -20,6 +20,8 @@ namespace InternalProj.Models
         public string? Description { get; set; }
         public string? Remarks { get; set; }
         public double SubTotal { get; set; }
+        public double? Advance { get; set; }
+        public double? Balance { get; set; }
 
         public int? MachineId { get; set; }
         public Machine? Machine { get; set; }

@@ -47,6 +47,7 @@
                         }
                     </select>
                 </div>
+                    @* <input type="hidden" asp-for="WorkOrder.StudioName" id="hiddenStudioName" /> *@
 
                 <div class="col-md-3">
                     <label class="form-label">Name</label>
@@ -168,7 +169,29 @@
                         </tr>
                     }
                 </tbody>
-                <tfoot id="subtotalFooter"></tfoot>
+
+                @* <tfoot id="subtotalFooter"></tfoot> *@
+                    <tfoot id="subtotalFooter">
+                        <tr>
+                            <td colspan="4" class="text-end fw-bold">Subtotal</td>
+                            <td>
+                                <input type="text" id="subtotalField" name="SubTotal" class="form-control" readonly />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-end fw-bold">Advance</td>
+                            <td>
+                                <input type="number" id="advanceField" name="Advance" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-end fw-bold">Balance</td>
+                            <td>
+                                <input type="text" id="balanceField" name="Balance" class="form-control" readonly />
+                            </td>
+                        </tr>
+                    </tfoot>
+
             </table>
 
             <span id="sheetsFormValidation" class="text-danger" style="display:none;">All sheets must be assigned before submitting.</span>
@@ -290,15 +313,18 @@
                             console.log(data);
                             $('#customerFullName').val(data.fullName || '');
                             $('#mobileNumber').val(data.mobile || '');
+                            //$('#hiddenStudioName').val(data.studioName || ''); // This line sets StudioName
                         })
                         .catch(error => {
                             console.error('Error fetching customer details:', error);
                             $('#customerFullName').val('');
                             $('#mobileNumber').val('');
+                            //$('#hiddenStudioName').val('');
                         });
                 } else {
                     $('#customerFullName').val('');
                     $('#mobileNumber').val('');
+                    //$('#hiddenStudioName').val('');
                 }
             });
 
@@ -735,7 +761,7 @@
 
             
             const now = new Date().toISOString().slice(0, 16);  // Adjust to ISO 8601 format (YYYY-MM-DDTHH:mm)
-            document.querySelector("[name='WorkOrder.Wdate']").min = now;
+            //document.querySelector("[name='WorkOrder.Wdate']").min = now;
             document.querySelector("[name='WorkOrder.Ddate']").min = now;
 
             $(document).ready(function () {
@@ -798,6 +824,34 @@
                 }
             });
 
+            // function updateMainHeadSubtotals() {
+            //     const rows = document.querySelectorAll("#workOrderTable tbody tr");
+            //     let grandTotal = 0;
+
+            //     rows.forEach(row => {
+            //         const qty = parseFloat(row.querySelector('input[name$=".Qty"]')?.value || 0);
+            //         const rate = parseFloat(row.querySelector('input[name$=".Rate"]')?.value || 0);
+            //         const gTotalField = row.querySelector('input[name$=".GTotal"]');
+
+            //         const calculatedGTotal = qty * rate;
+            //         grandTotal += calculatedGTotal;
+
+            //         if (gTotalField) {
+            //             gTotalField.value = calculatedGTotal.toFixed(2);
+            //         }
+            //     });
+
+            //     const footer = document.getElementById("subtotalFooter");
+            //     footer.innerHTML = "";
+
+            //     const row = document.createElement("tr");
+            //     row.innerHTML = `
+            //     <td colspan="4" class="text-end fw-bold">Subtotal:</td>
+            //     <td class="fw-bold">${grandTotal.toFixed(2)}</td>
+            // `;
+            //     footer.appendChild(row);
+            // }
+
             function updateMainHeadSubtotals() {
                 const rows = document.querySelectorAll("#workOrderTable tbody tr");
                 let grandTotal = 0;
@@ -815,15 +869,18 @@
                     }
                 });
 
-                const footer = document.getElementById("subtotalFooter");
-                footer.innerHTML = "";
+                // Update subtotal field
+                const subtotalField = document.getElementById("subtotalField");
+                subtotalField.value = grandTotal.toFixed(2);
 
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                <td colspan="4" class="text-end fw-bold">Subtotal:</td>
-                <td class="fw-bold">${grandTotal.toFixed(2)}</td>
-            `;
-                footer.appendChild(row);
+                // Also update balance when advance is entered
+                const advanceField = document.getElementById("advanceField");
+                const balanceField = document.getElementById("balanceField");
+
+                const advance = parseFloat(advanceField.value || 0);
+                const balance = grandTotal - advance;
+
+                balanceField.value = balance.toFixed(2);
             }
 
         });

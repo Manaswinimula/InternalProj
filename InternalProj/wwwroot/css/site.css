@@ -27,14 +27,15 @@ body {
     margin: 0 auto; 
 }
 
+
 .custom-form-wrapper {
-    background-color: #f8f9fa; 
+    background-color: #f8f9fa;
     padding: 30px;
     border-radius: 10px;
-    width: 100%; 
-    max-width: 1000px; 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
-    margin:auto;
+    width: 100%;
+    max-width: 1000px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: auto;
     margin-top: 20px;
 }
 

@@ -215,6 +215,12 @@ namespace InternalProj.Controllers
                 }
 
                 model.WorkOrder.SubTotal = Math.Round(subTotal, 2);
+
+                model.WorkOrder.Advance = model.Advance;
+                model.WorkOrder.Balance = model.Advance.HasValue
+                    ? model.SubTotal - model.Advance.Value
+                    : model.SubTotal;
+
                 _context.WorkOrders.Update(model.WorkOrder);
 
                 await _context.SaveChangesAsync();

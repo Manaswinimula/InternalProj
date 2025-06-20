@@ -36,6 +36,12 @@ namespace InternalProj.ViewModel
 
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
+        public double SubTotal { get; set; }
+        public double? Advance { get; set; }
+        public double? Balance { get; set; }
+
+        //public string WorkOrderNo { get; set; }
+        //public string StudioName { get; set; }
     }
     public class CombinedSubHead
     {

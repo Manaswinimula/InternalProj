@@ -59,6 +59,8 @@
                 <th>Work Type</th>                
                 <th>Date</th>
                 <th>Amount</th>
+                <th>Advance</th>
+                <th>Balance</th>
             </tr>
         </thead>
         <tbody>
@@ -77,6 +79,8 @@
                     <td>@item.WorkType?.TypeName</td>                    
                     <td>@item.Wdate?.ToString("dd-MM-yyyy")</td>
                     <td>@item.SubTotal</td>
+                    <td>@item.Advance</td>
+                    <td>@(item.SubTotal-item.Advance)</td>
                 </tr>
             }
         </tbody>
@@ -333,20 +337,21 @@ else
         display: flex;
         gap: 6px;
         align-items: center;
+        padding: 4px 10px;
     }
 
     .pagination-btn {
-        padding: 6px 12px;
-        background-color: #f0f0f0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+        padding: 6px 16px;
+        background-color: white;
+        border: 1px solid #007bff;
+        border-radius: 20px;
         color: #333;
         cursor: pointer;
         transition: background-color 0.2s ease;
     }
 
         .pagination-btn:hover {
-            background-color: #007bff;
+            background-color: 
             color: white;
         }
 

@@ -26,11 +26,8 @@ namespace InternalProj.Models
         [StringLength(1)]
         [RegularExpression("Y|N")]
         public string Active { get; set; }
-
-        // This is your only FK to CustomerCategory
         public int CategoryId { get; set; }
 
-        // This tells EF Core CategoryId is the FK
         [ForeignKey(nameof(CategoryId))]
         public CustomerCategory CustomerCategory { get; set; }
 
