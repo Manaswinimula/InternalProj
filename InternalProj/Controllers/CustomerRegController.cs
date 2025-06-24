@@ -39,6 +39,8 @@ namespace InternalProj.Controllers
         {
             if (ModelState.IsValid)
             {
+                var istTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+
                 var newCustomer = new CustomerReg
                 {
                     FirstName = model.FirstName,
@@ -82,7 +84,17 @@ namespace InternalProj.Controllers
                 TempData["SuccessMessage"] = "Customer registration successful!";
                 return RedirectToAction("Create");
             }
-
+            else
+            {
+                Console.WriteLine("Model is NOT valid");
+                foreach (var error in ModelState)
+                {
+                    foreach (var err in error.Value.Errors)
+                    {
+                        Console.WriteLine($"Key: {error.Key} - Error: {err.ErrorMessage}");
+                    }
+                }
+            }
             // Repopulate dropdowns
             model.StateMasterRegs = _context.StateMasters.Where(s => s.Active == "Y").ToList();
             model.RegionMasterRegs = _context.RegionMasters.Where(r => r.Active == "Y").ToList();

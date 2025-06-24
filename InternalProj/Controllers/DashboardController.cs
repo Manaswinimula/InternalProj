@@ -30,7 +30,6 @@ namespace InternalProj.Controllers
             return View(summary);
         }
 
-
         public IActionResult GetBoxContent(int id, int page = 1)
         {
             if (id == 1)
@@ -60,8 +59,6 @@ namespace InternalProj.Controllers
             return PartialView("_PlaceholderPartial");
         }
 
-
-
         public IActionResult Details(string id)
         {
             var workOrder = _context.WorkOrders
@@ -85,13 +82,13 @@ namespace InternalProj.Controllers
                 WorkDetailsList = workDetails
             };
 
-            return View(vm); // Create a View called `Details.cshtml`
+            return View(vm); 
         }
 
         public IActionResult GetWorkOrderSummary()
         {
             var summary = _context.WorkOrders
-                .Include(w => w.Customer) // assuming navigation property
+                .Include(w => w.Customer)
                 .OrderByDescending(w => w.Wdate)
                 .Take(5)
                 .Select(w => new WorkOrderSummaryViewModel

@@ -40,8 +40,10 @@ namespace InternalProj.ViewModel
         public double? Advance { get; set; }
         public double? Balance { get; set; }
 
-        //public string WorkOrderNo { get; set; }
-        //public string StudioName { get; set; }
+        public string WorkOrderNo { get; set; }
+        public DateTime? Wdate { get; set; }
+        public DateTime? Ddate { get; set; }
+        public string StudioName { get; set; }
     }
     public class CombinedSubHead
     {

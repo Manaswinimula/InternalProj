@@ -78,9 +78,9 @@
                     <td>@item.Customer?.StudioName</td>                   
                     <td>@item.WorkType?.TypeName</td>                    
                     <td>@item.Wdate?.ToString("dd-MM-yyyy")</td>
-                    <td>@item.SubTotal</td>
-                    <td>@item.Advance</td>
-                    <td>@(item.SubTotal-item.Advance)</td>
+                    <td>@item.SubTotal.ToString("N2")</td>
+                    <td>@item.Advance?.ToString("N2")</td>
+                    <td>@((item.SubTotal - (item.Advance ?? 0)).ToString("N2"))</td>
                 </tr>
             }
         </tbody>

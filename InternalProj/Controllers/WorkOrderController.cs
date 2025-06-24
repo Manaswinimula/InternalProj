@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using InternalProj.Data;
 using InternalProj.Models;
 using InternalProj.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Linq;
 using System.Threading.Tasks;
-using InternalProj.Data;
-using Newtonsoft.Json;
+using Twilio;
+using Twilio.Types;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace InternalProj.Controllers
 {
@@ -143,7 +146,7 @@ namespace InternalProj.Controllers
                         return View(model);
                     }
 
-                    // Handle ChildSubheadId: set to null if invalid or absent
+
                     if (detail.ChildSubheadId != null && detail.ChildSubheadId != 0)
                     {
                         var childExists = await _context.ChildSubHeads
@@ -226,6 +229,39 @@ namespace InternalProj.Controllers
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
+                var phoneNumber = await _context.CustomerContacts
+                .Where(c => c.CustomerId == model.WorkOrder.CustomerId)
+                .Select(c => c.Phone1)
+                .FirstOrDefaultAsync();
+
+                if (!string.IsNullOrEmpty(phoneNumber))
+                {
+                    try
+                    {
+                        const string accountSid = "AC7052ba65c1bdf3346a3b4c3b10b8814b";
+                        const string authToken = "c64da20074379fe9a886304a882bceec";
+                        const string fromPhoneNumber = "+14849608592";
+
+                        TwilioClient.Init(accountSid, authToken);
+
+                        var message = $"Dear Customer, your Work Order #{model.WorkOrder.WorkOrderNo} has been successfully created.";
+
+                        var sms = MessageResource.Create(
+                            body: message,
+                            from: new PhoneNumber(fromPhoneNumber),
+                            to: new PhoneNumber(phoneNumber)
+                        );
+
+                        Console.WriteLine($"SMS sent to {phoneNumber}: SID = {sms.Sid}, Status = {sms.Status}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"SMS error: {ex.Message}");
+                    }
+                }
+
+
+
                 TempData["SuccessMessage"] = "Work Order created successfully.";
                 return RedirectToAction("Create");
             }
@@ -238,7 +274,7 @@ namespace InternalProj.Controllers
                 PopulateDropdowns(model);
                 return View(model);
             }
-        }
+          }
 
 
         private void PopulateDropdowns(WorkOrderViewModel model)

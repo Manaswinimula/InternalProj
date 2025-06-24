@@ -1,17 +1,26 @@
 ﻿@model InternalProj.ViewModel.WorkOrderViewModel
 
+@{
+    var istTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+    DateTime? wdateUtc = Model.WorkOrder.Wdate;
+
+    string displayDate = wdateUtc.HasValue
+        ? TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(wdateUtc.Value, DateTimeKind.Utc), istTimeZone).ToString("dd-MM-yyyy HH:mm:ss")
+        : "N/A";
+}
+
 <div>
-    <h5>Work Order: @Model.WorkOrder.WorkOrderNo</h5>
+    <h5>Work Order No: @Model.WorkOrder.WorkOrderNo</h5>
     <p><strong>Studio:</strong> @Model.WorkOrder.Customer.StudioName</p>
     <p><strong>Work Type:</strong> @Model.WorkOrder.WorkType.TypeName</p>
-    <p><strong>Date:</strong> @Model.WorkOrder.Wdate</p>
+    <p><strong>Date:</strong> @displayDate</p>
 
     <hr />
     <h6>Work Details</h6>
     <table class="table table-bordered table-sm">
         <thead>
             <tr>
-                <th>Sub Head (Combined)</th>
+                <th>Sub Head</th>
                 <th>Qty</th>
                 <th>Rate</th>
                 <th>GTotal</th>
