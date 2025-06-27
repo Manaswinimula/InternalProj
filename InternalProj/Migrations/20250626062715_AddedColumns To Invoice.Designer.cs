@@ -3,6 +3,7 @@ using System;
 using InternalProj.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InternalProj.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250626062715_AddedColumns To Invoice")]
+    partial class AddedColumnsToInvoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -405,16 +408,16 @@ namespace InternalProj.Migrations
                     b.Property<DateTime>("BillDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<decimal?>("Cess")
-                        .HasColumnType("numeric");
+                    b.Property<double>("Cess")
+                        .HasColumnType("double precision");
 
-                    b.Property<decimal?>("Commission")
-                        .HasColumnType("numeric");
+                    b.Property<double>("Commission")
+                        .HasColumnType("double precision");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal?>("Discount")
+                    b.Property<decimal>("Discount")
                         .HasColumnType("numeric");
 
                     b.Property<int>("ModeId")
@@ -423,11 +426,11 @@ namespace InternalProj.Migrations
                     b.Property<int>("ModeOfPaymentModeId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal?>("NetAmount")
-                        .HasColumnType("numeric");
+                    b.Property<double>("NetAmount")
+                        .HasColumnType("double precision");
 
-                    b.Property<decimal?>("Tax")
-                        .HasColumnType("numeric");
+                    b.Property<double>("Tax")
+                        .HasColumnType("double precision");
 
                     b.Property<int>("WorkOrderId")
                         .HasColumnType("integer");

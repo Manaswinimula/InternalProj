@@ -25,7 +25,5 @@ namespace InternalProj.Models
         public CustomerReg Customer { get; set; }
         public StateMaster? State { get; set; }
         public RegionMaster? Region { get; set; }
-
-
     }
 }

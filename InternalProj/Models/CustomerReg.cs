@@ -46,5 +46,6 @@ namespace InternalProj.Models
         public CustomerAddress? Address { get; set; }
 
         public ICollection<CustomerContact> Contacts { get; set; } = new List<CustomerContact>();
+        public ICollection<WorkOrderMaster> WorkOrders { get; set; } = new List<WorkOrderMaster>();
     }
 }

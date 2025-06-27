@@ -57,5 +57,7 @@ namespace InternalProj.Models
         [RegularExpression("Y|N")]
         public string Active { get; set; }
 
+        public ICollection<WorkDetails> WorkDetails { get; set; } = new List<WorkDetails>(); 
+
     }
 }

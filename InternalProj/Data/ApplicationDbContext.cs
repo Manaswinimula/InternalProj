@@ -36,7 +36,9 @@ namespace InternalProj.Data
 
         public DbSet<RateMaster> RateMasters { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
-
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<ModeOfPayment> ModeOfPayments { get; set; }
+        public DbSet<OutstandingAmount> OutstandingAmounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -57,14 +59,12 @@ namespace InternalProj.Data
                 .WithOne(a => a.Customer)
                 .HasForeignKey<CustomerAddress>(a => a.CustomerId);
 
-            // Configuring the one-to-many relationship between CustomerReg and CustomerContact
             modelBuilder.Entity<CustomerReg>()
                 .HasMany(c => c.Contacts)
                 .WithOne(cc => cc.Customer)
                 .HasForeignKey(cc => cc.CustomerId)
                 .OnDelete(DeleteBehavior.Cascade);  
 
-            // Configuring the one-to-many relationship between PhoneType and CustomerContact
             modelBuilder.Entity<CustomerContact>()
                 .HasOne(cc => cc.PhoneType)
                 .WithMany()
@@ -135,7 +135,6 @@ namespace InternalProj.Data
                 .HasForeignKey(s => s.MachineId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
             // ChildSubHead to SubHeadDetails
             modelBuilder.Entity<ChildSubHead>()
                 .HasOne(c => c.SubHead)
@@ -163,6 +162,5 @@ namespace InternalProj.Data
                 .HasDefaultValue("Y")
                 .HasAnnotation("RegularExpression", "Y|N");
         }
-
     }
 }
