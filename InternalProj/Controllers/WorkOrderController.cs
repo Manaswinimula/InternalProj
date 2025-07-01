@@ -391,5 +391,35 @@ namespace InternalProj.Controllers
             return PartialView("_WorkOrderDetailsPartial", viewModel);
         }
 
+        [HttpGet]
+        public IActionResult GetNextWorkOrderNo(int workTypeId)
+        {
+            var workType = _context.WorkTypes.FirstOrDefault(w => w.WorkTypeId == workTypeId);
+            if (workType == null)
+                return BadRequest("Invalid Work Type");
+
+            var prefix = workType.TypeName.Substring(0, 1).ToUpper();
+
+            var latestOrder = _context.WorkOrders
+                .Where(w => w.WorkOrderNo.StartsWith(prefix + "-"))
+                .OrderByDescending(w => w.WorkOrderId)
+                .Select(w => w.WorkOrderNo)
+                .FirstOrDefault();
+
+            int nextNumber = 1;
+            if (!string.IsNullOrEmpty(latestOrder))
+            {
+                var parts = latestOrder.Split('-');
+                if (parts.Length == 2 && int.TryParse(parts[1], out int lastNum))
+                {
+                    nextNumber = lastNum + 1;
+                }
+            }
+
+            string newOrderNo = $"{prefix}-{nextNumber:D3}";
+            return Json(new { workOrderNo = newOrderNo });
+        }
+
+
     }
 }

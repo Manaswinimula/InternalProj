@@ -2,6 +2,7 @@ html {
   font-size: 14px;
 }
 
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -21,11 +22,13 @@ body {
   margin-bottom: 60px;
 }
 
+
 .custom-form {
     max-width: 100%; 
     width: 100%; 
     margin: 0 auto; 
 }
+
 
 
 .custom-form-wrapper {
@@ -48,17 +51,19 @@ body {
 }
 
 .btn-primary {
-    background-color: #28a745 !important; 
-    border-color: #28a745 !important;
+    background-color: #4a0357 !important;
+    border-color: #4a0357 !important;
     color: white;
-    width: 150px;
     margin-bottom: 20px;
-    margin-top:10px;
+    margin-top: 10px;
+    border-radius: 10px !important;
+    font-weight:500 !important;
+    padding: 10px 20px !important;
 }
 
     .btn-primary:hover {
-        background-color: #218838 !important;
-        border-color: #1e7e34 !important;
+        background-color: #9007a8 !important;
+        border-color: #9007a8 !important;
     }
 
 
@@ -98,5 +103,16 @@ input {
 }
 
 .select2{
-    font-size: 14px !important; /* Adjust to your preferred size */
+    font-size: 14px !important; 
+}
+
+footer.footer {
+    padding: 10px;
+    background-color: #f8f9fa;
+    margin-top: 20px;
+    text-align:center;
+}
+
+.page-bottom-spacing {
+    margin-bottom: 100px; 
 }

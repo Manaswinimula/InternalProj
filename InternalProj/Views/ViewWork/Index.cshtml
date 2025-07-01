@@ -7,22 +7,21 @@
 
 @* <link rel="stylesheet" href="~/css/ViewWork.css" asp-append-version="true" /> *@
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
+<div class="container d-flex justify-content-center align-items-center">
   <div class="card shadow p-4 w-100">
-    <h2 class="text-center">Work Order Details</h2>
+    <h3 class="text-center">Work Order Details</h3>
      <div class="custom-form-wrapper">
-       <form asp-action="Index" method="post" class="filter-form">
-   
-    <div class="form-group">
-        <label for="studio">Studio:</label>
-        <input type="text" id="studio" name="studio" list="studioList" placeholder="Enter studio name" value="@Model.StudioFilter" />
-        <datalist id="studioList">
-            @foreach (var studio in Model.StudioList)
-            {
-                <option value="@studio"></option>
-            }
-        </datalist>
-    </div>
+       <form asp-action="Index" method="post" class="filter-form">   
+        <div class="form-group">
+            <label for="studio">Studio:</label>
+            <input type="text" id="studio" name="studio" list="studioList" placeholder="Enter studio name" value="@Model.StudioFilter" />
+            <datalist id="studioList">
+                @foreach (var studio in Model.StudioList)
+                {
+                    <option value="@studio"></option>
+                }
+            </datalist>
+        </div>
 
 
     <div class="form-group">
@@ -187,22 +186,16 @@ else
 
 
 
-
-
-
 <style>
     /* Global page styles */
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: 16px;
         color: #333;
-        margin: 20px;
-        background-color: #fafafa;
+        font:13px;
     }
 
-    h2 {
-        font-weight: 600;
-        margin-bottom: 20px;
+    h3 {
+        font-weight: 500;
+        margin-bottom: 10px;
         color: #222;
     }
 
@@ -232,7 +225,7 @@ else
     input[type="date"],
     select {
         padding: 8px 10px;
-        font-size: 15px;
+        font-size: 14px;
         border: 1px solid #ccc;
         border-radius: 4px;
         transition: border-color 0.3s ease;
@@ -241,24 +234,25 @@ else
     input[type="text"]:focus,
     input[type="date"]:focus,
     select:focus {
-        border-color: #007bff;
+            border-color: #4a0357;
         outline: none;
     }
 
     button {
         padding: 10px 20px;
-        font-size: 15px;
-        background-color: #007bff;
+        font-size: 14px;
+        background-color: #4a0357;
         border: none;
         color: white;
-        border-radius: 4px;
+        border-radius: 10px;
         cursor: pointer;
         transition: background-color 0.3s ease;
         align-self: center;
+        font-weight: 500;
     }
 
     button:hover {
-        background-color: #0056b3;
+            background-color: #9007a8;
     }
 
     /* Table styling */
@@ -267,18 +261,18 @@ else
         border-collapse: collapse;
         box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
         background-color: white;
+        font-size: 13px;
     }
 
     .workorder-table th,
     .workorder-table td {
         border: 1px solid #ddd;
-        padding: 12px 15px;
+        padding: 8px 10px;
         text-align: left;
-        font-size: 15px;
     }
 
     .workorder-table thead {
-        background-color: #007bff;
+        background-color: #64126b;
         color: white;
         font-weight: 600;
     }
@@ -306,14 +300,15 @@ else
     .btn-refresh {
         padding: 10px 20px;
         text-decoration:none;
-        font-size: 15px;
+        font-size: 14px;
         background-color: #07ad33;
         border: none;
         color: white;
-        border-radius: 4px;
+        border-radius: 10px;
         cursor: pointer;
         transition: background-color 0.3s ease;
         align-self: center;
+        font-weight: 500;
     }
 
         .btn-refresh:hover {
@@ -348,20 +343,20 @@ else
     .pagination-btn {
         padding: 6px 16px;
         background-color: white;
-        border: 1px solid #007bff;
+        border: 1px solid #64126b;
         border-radius: 20px;
-        color: #333;
+        color: #64126b;
         cursor: pointer;
         transition: background-color 0.2s ease;
     }
 
         .pagination-btn:hover {
-            background-color: 
+            background-color: #64126b;
             color: white;
         }
 
         .pagination-btn.active {
-            background-color: #007bff;
+            background-color: #64126b;
             color: white;
             font-weight: bold;
         }

@@ -3,14 +3,12 @@ using InternalProj.Models;
 using InternalProj.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace InternalProj.Controllers
 {
     public class InvoiceController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public InvoiceController(ApplicationDbContext context)
         {
             _context = context;
@@ -78,7 +76,7 @@ namespace InternalProj.Controllers
                 model.PaymentModes = _context.ModeOfPayments.ToList();
                 return View(model);
             }
-
+             
             try
             {
                 decimal balance = (decimal)(workOrder.Balance ?? 0);
@@ -109,6 +107,10 @@ namespace InternalProj.Controllers
                 };
 
                 _context.Invoices.Add(invoice);
+
+                workOrder.Balance = 0;
+                _context.WorkOrders.Update(workOrder);
+
                 _context.SaveChanges();
 
                 TempData["SuccessMessage"] = "Invoice created successfully!";
