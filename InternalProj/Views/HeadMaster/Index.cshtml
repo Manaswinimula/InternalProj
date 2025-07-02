@@ -1,0 +1,76 @@
+﻿@model InternalProj.ViewModel.HeadMasterViewModel
+
+@{
+    ViewData["Title"] = "Head Master";
+    Layout = "_Layout";
+}
+
+<h2 class="text-center mb-4">Head Master Hierarchy</h2>
+
+<div id="headMasterContainer">
+    @foreach (var mainHead in Model.MainHeads.OrderBy(m => m.MainHeadName))
+    {
+        <div class="main-head border rounded p-3 mb-4">
+            <h4>@mainHead.MainHeadName</h4>
+
+            <div class="subheads ps-4 mt-2">
+                @foreach (var subHead in Model.SubHeads.Where(s => s.MainHeadId == mainHead.MainHeadId).OrderBy(s => s.SubHeadName))
+                {
+                    <div class="subhead border rounded p-2 mb-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <strong>@subHead.SubHeadName</strong>
+                        </div>
+
+                        <ul class="child-subheads mt-2 ps-4">
+                            @foreach (var child in Model.ChildSubHeads.Where(c => c.SubHeadId == subHead.SubHeadId).OrderBy(c => c.ChildSubHeadName))
+                            {
+                                <li>@child.ChildSubHeadName</li>
+                            }
+                        </ul>
+
+                        <button class="btn btn-sm btn-outline-secondary mt-1 add-child-btn" data-subheadid="@subHead.SubHeadId">+ Add Child</button>
+                    </div>
+                }
+
+                <button class="btn btn-sm btn-outline-primary mt-2 add-subhead-btn" data-mainheadid="@mainHead.MainHeadId">+ Add SubHead</button>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+            $(document).on("click", ".add-subhead-btn", function () {
+            const mainHeadId = $(this).data("mainheadid");
+            const subHeadName = prompt("Enter SubHead name:");
+            if (!subHeadName) return;
+
+                $.post("/HeadMaster/AddSubHead", {
+                    mainHeadId: mainHeadId,
+                    subHeadName: subHeadName
+                })
+                .done(() => {
+                    console.log("SubHead added!");
+                    location.reload();
+                })
+                .fail((xhr) => {
+                    console.error("Error:", xhr.responseText);
+                    alert("Failed to add SubHead: " + xhr.responseText);
+                });
+                    
+        });
+
+        $(document).on('click', '.add-child-btn', function () {
+            const subHeadId = $(this).data('subheadid');
+            const name = prompt("Enter new ChildSubHead name:");
+            if (!name) return;
+
+            $.post('/HeadMaster/AddChildSubHead', { subHeadId, childSubHeadName: name })
+                .done(res => {
+                    if (res.success) location.reload();
+                    else alert("Failed to add ChildSubHead");
+                })
+                .fail(() => alert("Error adding ChildSubHead"));
+        });
+    </script>
+}

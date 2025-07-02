@@ -29,7 +29,6 @@ namespace InternalProj.Models
         public WorkOrderMaster WorkOrder { get; set; }
 
         [ValidateNever]
-        [ForeignKey(nameof(ModeId))]
         public ModeOfPayment ModeOfPayment { get; set; }
     }
 

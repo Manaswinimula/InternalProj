@@ -23,7 +23,7 @@ namespace InternalProj.Models
         public bool Status { get; set; }
 
 
-        public string Details { get; set; }
+        public string? Details { get; set; }
 
         [Required]
         [StringLength(1)]

@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/LayoutPage.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Invoice.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Customer.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/InternalProj.styles.css" asp-append-version="true" />    
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
@@ -87,10 +86,6 @@
                                                         && ViewContext.RouteData.Values["action"]?.ToString() == "Privacy" ? "active" : "") "
                                asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-
-                        <!-- Repeat for other pages like Reports, Invoice etc. -->
-
-
                     </ul>
                 </div>
             </div>

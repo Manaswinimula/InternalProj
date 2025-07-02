@@ -61,7 +61,6 @@ namespace InternalProj.Controllers
 
             if (!ModelState.IsValid)
             {                
-                // Reload dropdowns
                 model.Customers = _context.CustomerRegs.ToList();
                 model.PaymentModes = _context.ModeOfPayments.ToList();
                 TempData["ErrorMessage"] = "Please correct the errors and try again.";

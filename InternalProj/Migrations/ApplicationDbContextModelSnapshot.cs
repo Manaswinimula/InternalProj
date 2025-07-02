@@ -758,7 +758,6 @@ namespace InternalProj.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Details")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("MachineId")

@@ -63,7 +63,7 @@
 
             <div class="mb-3 col-md-3">
                 <label class="form-label required-label">State</label>
-                <select id="StateId" name="StateId" class="form-control" required>
+                <select id="StateId" name="StateId" class="form-select" required>
                     <option value="">-- Select State --</option>
                     @foreach (var state in Model.StateMasterRegs)
                     {
@@ -75,7 +75,7 @@
 
             <div class="mb-3 col-md-3">
                 <label class="form-label required-label">Region</label>
-                <select id="RegionId" name="RegionId" class="form-control" required>
+                <select id="RegionId" name="RegionId" class="form-select" required>
                     <option value="">-- Select Region --</option>
                     @foreach (var region in Model.RegionMasterRegs)
                     {
@@ -108,7 +108,7 @@
 
             <div class="mb-3 col-md-3">
                 <label class="form-label required-label">Phone Type</label>
-                <select name="PhoneTypeId" class="form-control" required>
+                <select name="PhoneTypeId" class="form-select" required>
                     <option value="">-- Select Phone Type --</option>
                     @foreach (var type in Model.PhoneTypes)
                     {
@@ -120,7 +120,7 @@
 
             <div class="mb-3 col-md-3">
                 <label class="form-label required-label">Customer Category</label>
-                <select name="CategoryId" class="form-control" required>
+                <select name="CategoryId" class="form-select" required>
                     <option value="">-- Select Category --</option>
                     @foreach (var category in Model.CustomerCategories)
                     {
@@ -131,7 +131,7 @@
 
             <div class="mb-3 col-md-3">
                 <label class="form-label required-label">Branch</label>
-                <select name="BranchId" class="form-control" required>
+                <select name="BranchId" class="form-select" required>
                     <option value="">-- Select Branch --</option>
                     @foreach (var branch in Model.Branches)
                     {
@@ -141,7 +141,7 @@
             </div>
             <div class="mb-3 col-md-3">
                 <label class="form-label required-label">Rate Type</label>
-                <select name="RateTypeId" class="form-control" required>
+                <select name="RateTypeId" class="form-select" required>
                     <option value="">-- Select RateType --</option>
                     @foreach (var type in Model.RateTypes)
                     {
@@ -152,7 +152,7 @@
 
             <div class="mb-3 col-md-3">
                 <label class="form-label required-label">Staff</label>
-                <select name="StaffId" class="form-control" required>
+                <select name="StaffId" class="form-select" required>
                     <option value="">-- Select Staff --</option>
                     @foreach (var staff in Model.StaffRegs)
                     {
